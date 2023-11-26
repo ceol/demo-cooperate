@@ -32,3 +32,4 @@ class Ad(models.Model):
     ad_type = models.CharField(max_length=4, choices=AD_TYPES)
     spend = models.PositiveSmallIntegerField()
     rate = models.DecimalField(max_digits=3, decimal_places=2)
+    date_created = models.DateTimeField(auto_now_add=True)

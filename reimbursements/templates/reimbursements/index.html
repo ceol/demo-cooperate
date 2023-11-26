@@ -38,10 +38,13 @@
             </div>
         </div>
     </form>
-    <div class="grid grid-cols-4">
+    <div class="grid grid-cols-5">
         {% for ad in all_ads %}
             <div>
                 Ad Type: {{ ad.ad_type }}
+            </div>
+            <div>
+                Date: {{ ad.date_created|date:"n/j/y" }}
             </div>
             <div>
                 Spend: {{ ad.spend }}
