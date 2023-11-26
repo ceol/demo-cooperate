@@ -1,0 +1,62 @@
+{% extends "reimbursements/base.html" %}
+
+{% block content %}
+<div class="flex flex-col gap-y-24">
+    <table class="table-fixed">
+        <thead>
+            <tr class="border-b">
+                <th class="border-r p-1 px-2">Ad Type</th>
+                <th class="border-r p-1 px-2">Ads Run</th>
+                <th class="border-r p-1 px-2">Actual Spend</th>
+                <th class="border-r p-1 px-2">Cost Sharing</th>
+                <th class="p-1 px-2">Reimbursement</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in reimbursement_data %}
+            <tr>
+                <td>{{ row.ad_type }}</td>
+                <td>{{ row.ads_run }}</td>
+                <td>{{ row.actual_spend }}</td>
+                <td>{{ row.cost_sharing }}</td>
+                <td>{{ row.reimbursement }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="{% url 'reimbursements:create' %}" method="post">
+        {% csrf_token %}
+        <div class="grid grid-cols-3">
+            {% for field in form %}
+                <div class="flex flex-col">
+                    {{ field.errors }}
+                    {{ field.label_tag }} {{ field }}
+                </div>
+            {% endfor %}
+            <div>
+                <button type="submit" class="btn">Create</button>
+            </div>
+        </div>
+    </form>
+    <div class="grid grid-cols-4">
+        {% for ad in all_ads %}
+            <div>
+                Ad Type: {{ ad.ad_type }}
+            </div>
+            <div>
+                Spend: {{ ad.spend }}
+            </div>
+            <div>
+                Rate: {{ ad.rate }}
+            </div>
+            <div>
+                <form action="{% url 'reimbursements:remove' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ ad.id }}">
+                    <button type="submit" class="btn">Remove</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
