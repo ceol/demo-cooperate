@@ -27,6 +27,6 @@ And visit [http://127.0.0.1:8080/](http://127.0.0.1:8080/) to view the app.
 
 # Design Decisions
 
-* Ads are stored as rows in a SQLite table. I think this is a great use case for a relational database, since it appears to have relations to other data (e.g. the spender, where it's running). A graph or key-value store could also work, maybe indexed by who created it (`site_id` or `user_id`).
+* Ads are stored as rows in a SQLite table. I think this is a great use case for a relational database, since each "ad" has a consistent data structure, and we will benefit from using the relational model for other data (e.g. the spender, where it's running) in the future. A graph or key-value store could also work, maybe indexed by who created it (`site_id` or `user_id`).
 
-* Cost sharing rate is stored alongside each ad, even though the spec did not indicate it could change. It's very possible the rate could change regardless, so having that historical information is important. This also makes it possible to use the database to make calculations.
+* Cost sharing rate is stored alongside each ad, even though the spec did not indicate it could change. It's very possible the rate could change regardless, so having that historical information is important. This also makes it possible to use the database to make calculations, which can have performance benefits.
